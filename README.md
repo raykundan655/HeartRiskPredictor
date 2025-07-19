@@ -75,8 +75,10 @@ HeartRiskPredictor/
 ├── templates/
 
 │ └──index.html Frontend UI for prediction
-  └──contact.html
-  └──result.html
+│ └──contact.html
+│ └──result.html
+
+│
 
 ├── app.py Flask backend code
 
