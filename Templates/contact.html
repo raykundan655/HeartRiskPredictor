@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Developer - CardioPredict AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f8fafc;
+        }
+
+        .header-top {
+            background: #1e40af;
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .header-top .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+        }
+
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .main-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e40af;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #1e40af;
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        .contact-subtitle {
+            font-size: 1.2rem;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .developer-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 40px;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 50px;
+            text-align: center;
+            position: relative;
+        }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            animation: float 3s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .developer-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .developer-title {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-content {
+            padding: 50px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-item {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .contact-item:hover::before {
+            left: 100%;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-color: #3b82f6;
+        }
+
+        .contact-item.github {
+            border-color: #333;
+        }
+
+        .contact-item.github:hover {
+            border-color: #333;
+            box-shadow: 0 15px 35px rgba(51, 51, 51, 0.2);
+        }
+
+        .contact-item.linkedin {
+            border-color: #0077b5;
+        }
+
+        .contact-item.linkedin:hover {
+            border-color: #0077b5;
+            box-shadow: 0 15px 35px rgba(0, 119, 181, 0.2);
+        }
+
+        .contact-item.phone {
+            border-color: #22c55e;
+        }
+
+        .contact-item.phone:hover {
+            border-color: #22c55e;
+            box-shadow: 0 15px 35px rgba(34, 197, 94, 0.2);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .github .contact-icon {
+            background: linear-gradient(135deg, #333, #24292e);
+        }
+
+        .linkedin .contact-icon {
+            background: linear-gradient(135deg, #0077b5, #005885);
+        }
+
+        .phone .contact-icon {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+        }
+
+        .contact-label {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .contact-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .about-section {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .about-section h3 {
+            color: #92400e;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-section p {
+            color: #78350f;
+            line-height: 1.7;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .contact-title {
+                font-size: 2rem;
+            }
+            
+            .card-content {
+                padding: 30px 20px;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .developer-name {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Top Bar -->
+    <div class="header-top">
+        <div class="container">
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <span>🔒</span> HIPAA Compliant
+                </div>
+                <div class="trust-badge">
+                    <span>🏥</span> Medical Grade AI
+                </div>
+                <div class="trust-badge">
+                    <span>⚡</span> Instant Results
+                </div>
+            </div>
+            <div>
+                <span>📞 Support: Available 24/7</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">❤️</div>
+                <span>CardioPredict AI</span>
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Assessment</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="contact-container">
+        <div class="contact-header">
+            <h1 class="contact-title">Meet the Developer</h1>
+            <p class="contact-subtitle">
+                Get in touch with the creator of CardioPredict AI - passionate about combining artificial intelligence with healthcare innovation
+            </p>
+        </div>
+
+        <div class="developer-card">
+            <div class="card-header">
+                <div class="profile-image">
+                    👨‍💻
+                </div>
+                <h2 class="developer-name">Kundan Kr Ray</h2>
+                <p class="developer-title">AI/ML Engineer & Healthcare Technology Specialist</p>
+            </div>
+
+            <div class="card-content">
+                <div class="contact-grid">
+                    <a href="https://github.com/raykundan655" target="_blank" class="contact-item github">
+                        <div class="contact-icon">🐙</div>
+                        <div class="contact-label">GitHub Profile</div>
+                        <div class="contact-value">raykundan655</div>
+                    </a>
+                    
+                    <a href="https://www.linkedin.com/in/raykundan655/" target="_blank" class="contact-item linkedin">
+                        <div class="contact-icon">💼</div>
+                        <div class="contact-label">LinkedIn</div>
+                        <div class="contact-value">raykundan655</div>
+                    </a>
+                    
+                    <a href="tel:700*****65" class="contact-item phone">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">700*****65</div>
+                    </a>
+                </div>
+
+                <div class="about-section">
+                    <h3><span>🚀</span> About CardioPredict AI</h3>
+                    <p>
+                        CardioPredict AI represents the cutting edge of healthcare technology, combining advanced machine learning algorithms with comprehensive cardiovascular risk assessment. This platform was developed using state-of-the-art AI models trained on extensive medical datasets to provide accurate, instant health predictions.
+                    </p>
+                    <p>
+                        As a dedicated AI/ML engineer with a passion for healthcare innovation, I believe in making advanced medical technology accessible to everyone. This project demonstrates the transformative potential of artificial intelligence in preventive healthcare, early disease detection, and personalized health management.
+                    </p>
+                </div>
+
+                <div class="about-section">
+                    <h3><span>💡</span> Let's Connect</h3>
+                    <p>
+                        Whether you're interested in the technical aspects of the AI model, want to collaborate on healthcare technology projects, or need custom AI solutions for your organization, I'd love to hear from you! I'm always excited to discuss innovative applications of machine learning in healthcare and explore new opportunities to improve patient outcomes through technology.
+                    </p>
+                </div>
+
+                <div class="skills">
+                    <span class="skill-tag">Machine Learning</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">Healthcare AI</span>
+                    <span class="skill-tag">Data Science</span>
+                    <span class="skill-tag">Flask/Django</span>
+                    <span class="skill-tag">TensorFlow</span>
+                    <span class="skill-tag">Scikit-learn</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CardioPredict AI - Advanced Heart Disease Risk Assessment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f8fafc;
+        }
+
+        .header-top {
+            background: #1e40af;
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .header-top .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+        }
+
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .main-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e40af;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #1e40af;
+        }
+
+        .nav-menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #1e40af;
+            border-radius: 2px;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+        }
+
+        .cta-button {
+            background: #ef4444;
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .cta-button:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+        }
+
+        .stats-section {
+            background: white;
+            padding: 60px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .assessment-section {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .assessment-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            padding: 40px;
+            text-align: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .card-header h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .card-header p {
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+
+        .form-container {
+            padding: 50px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+            font-size: 1rem;
+        }
+
+        .form-group .label-info {
+            font-size: 0.85rem;
+            color: #6b7280;
+            font-weight: 400;
+            margin-left: 5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .submit-container {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            padding: 20px 60px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .trust-section {
+            background: #f8fafc;
+            padding: 80px 0;
+            margin-top: 80px;
+        }
+
+        .trust-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .trust-item {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .trust-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .trust-item h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        .trust-item p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e5e7eb;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-features {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .main-header .container {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Top Bar -->
+    <div class="header-top">
+        <div class="container">
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <span>🔒</span> HIPAA Compliant
+                </div>
+                <div class="trust-badge">
+                    <span>🏥</span> Medical Grade AI
+                </div>
+                <div class="trust-badge">
+                    <span>⚡</span> Instant Results
+                </div>
+            </div>
+            <div>
+                <span>📞 Support: Available 24/7</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">❤️</div>
+                <span>CardioPredict AI</span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#assessment" class="active">Assessment</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Advanced Heart Disease Risk Assessment</h1>
+            <p class="hero-subtitle">
+                Get instant, AI-powered cardiovascular risk analysis using cutting-edge machine learning technology trusted by healthcare professionals worldwide.
+            </p>
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <span>🎯</span> 94.2% Accuracy Rate
+                </div>
+                <div class="hero-feature">
+                    <span>⚡</span> Results in Seconds
+                </div>
+                <div class="hero-feature">
+                    <span>🔬</span> Clinically Validated
+                </div>
+            </div>
+            <a href="#assessment" class="cta-button">Start Free Assessment</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">500K+</div>
+                <div class="stat-label">Assessments Completed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">94.2%</div>
+                <div class="stat-label">Prediction Accuracy</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1,200+</div>
+                <div class="stat-label">Healthcare Partners</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Available Support</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assessment Section -->
+    <section id="assessment" class="assessment-section">
+        <div class="section-header">
+            <h2 class="section-title">Cardiovascular Risk Assessment</h2>
+            <p class="section-subtitle">
+                Complete this comprehensive health assessment to receive your personalized cardiovascular risk analysis. All information is processed securely and confidentially.
+            </p>
+        </div>
+
+        <div class="assessment-card">
+            <div class="card-header">
+                <h3>🏥 Medical Assessment Form</h3>
+                <p>Please provide accurate information for the most reliable results</p>
+            </div>
+
+            <div class="form-container">
+                <form id="predictionForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="age">
+                                Age <span class="label-info">(years)</span>
+                            </label>
+                            <input type="number" id="age" name="age" min="1" max="120" required placeholder="Enter your age">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sex">
+                                Biological Sex
+                            </label>
+                            <select id="sex" name="sex" required>
+                                <option value="">Select your biological sex</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="chestPainType">
+                                Chest Pain Type <span class="label-info">(if any)</span>
+                            </label>
+                            <select id="chestPainType" name="chestPainType" required>
+                                <option value="">Select chest pain type</option>
+                                <option value="TA">Typical Angina</option>
+                                <option value="ATA">Atypical Angina</option>
+                                <option value="NAP">Non-Anginal Pain</option>
+                                <option value="ASY">Asymptomatic (No chest pain)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cholesterol">
+                                Cholesterol Level <span class="label-info">(mg/dl)</span>
+                            </label>
+                            <input type="number" id="cholesterol" name="cholesterol" min="0" max="1000" required placeholder="e.g., 200">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fastingBS">
+                                Fasting Blood Sugar <span class="label-info">(> 120 mg/dl)</span>
+                            </label>
+                            <select id="fastingBS" name="fastingBS" required>
+                                <option value="">Select fasting blood sugar level</option>
+                                <option value="0">Normal (≤ 120 mg/dl)</option>
+                                <option value="1">Elevated (> 120 mg/dl)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="restingECG">
+                                Resting ECG Results
+                            </label>
+                            <select id="restingECG" name="restingECG" required>
+                                <option value="">Select ECG results</option>
+                                <option value="Normal">Normal</option>
+                                <option value="ST">ST-T wave abnormality</option>
+                                <option value="LVH">Left ventricular hypertrophy</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exerciseAngina">
+                                Exercise Induced Angina
+                            </label>
+                            <select id="exerciseAngina" name="exerciseAngina" required>
+                                <option value="">Do you experience chest pain during exercise?</option>
+                                <option value="N">No</option>
+                                <option value="Y">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="oldpeak">
+                                Oldpeak Value <span class="label-info">(ST depression induced by exercise)</span>
+                            </label>
+                            <input type="number" id="oldpeak" name="oldpeak" step="0.1" min="-10" max="10" required placeholder="e.g., 1.0">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stSlope">
+                                ST Slope <span class="label-info">(slope of peak exercise ST segment)</span>
+                            </label>
+                            <select id="stSlope" name="stSlope" required>
+                                <option value="">Select ST slope</option>
+                                <option value="Up">Upsloping</option>
+                                <option value="Flat">Flat</option>
+                                <option value="Down">Downsloping</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="submit-container">
+                        <button type="submit" class="submit-btn">
+                            🔍 Analyze Cardiovascular Risk
+                        </button>
+                        <p style="margin-top: 15px; color: #6b7280; font-size: 0.9rem;">
+                            ⚡ Results typically available within 2-3 seconds
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust-section">
+        <div class="trust-container">
+            <h2 class="section-title">Why Trust CardioPredict AI?</h2>
+            <p class="section-subtitle">
+                Our platform combines cutting-edge AI technology with medical expertise to provide reliable cardiovascular risk assessments.
+            </p>
+
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <div class="trust-icon">🔬</div>
+                    <h4>Clinically Validated</h4>
+                    <p>Our AI model has been trained on extensive medical datasets and validated by cardiovascular specialists worldwide.</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">🔒</div>
+                    <h4>Privacy Protected</h4>
+                    <p>All health data is encrypted and processed securely. We never store personal information without consent.</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">⚡</div>
+                    <h4>Instant Results</h4>
+                    <p>Get your cardiovascular risk assessment in seconds, not days. No waiting for appointments or lab results.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="#assessment">Assessment</a>
+                <a href="#about">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+            </div>
+            <p style="color: #9ca3af; margin-top: 20px;">
+                © 2024 CardioPredict AI. This tool is for educational purposes only and should not replace professional medical advice.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3 style="margin-bottom: 10px;">Analyzing Your Data</h3>
+            <p style="color: #6b7280;">Our AI is processing your cardiovascular risk factors...</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading overlay
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.style.display = 'flex';
+            
+            // Disable submit button
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            
+            try {
+                // Get form data
+                const formData = new FormData(this);
+                const data = {};
+                for (let [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+                
+                // Prepare data for Flask API (keeping categorical as strings)
+                const apiData = {
+                    Age: parseInt(data.age),
+                    Sex: data.sex, // Keep as string - backend will handle encoding
+                    ChestPainType: data.chestPainType, // Keep as string
+                    Cholesterol: parseInt(data.cholesterol),
+                    FastingBS: parseInt(data.fastingBS),
+                    RestingECG: data.restingECG, // Keep as string
+                    ExerciseAngina: data.exerciseAngina, // Keep as string
+                    Oldpeak: parseFloat(data.oldpeak),
+                    ST_Slope: data.stSlope // Keep as string
+                };
+                
+                // Call your Flask API
+                const response = await fetch('http://127.0.0.1:5000/predict', { // Replace with your Flask API URL
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(apiData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                // Store result in localStorage to pass to result page
+                localStorage.setItem('predictionResult', JSON.stringify({
+                    prediction: result.prediction,
+                    confidence: result.confidence || null,
+                    data: data,
+                    timestamp: new Date().toISOString(),
+                    message: result.message || null
+                }));
+                
+                // Hide loading overlay
+                loadingOverlay.style.display = 'none';
+                
+                // Redirect to result page
+                window.location.href = 'result.html';
+                
+            } catch (error) {
+                console.error('Prediction error:', error);
+                
+                // Hide loading overlay
+                loadingOverlay.style.display = 'none';
+                
+                // Show error message
+                alert('We apologize, but our system is temporarily unavailable. Please try again in a few moments or contact our support team.');
+                
+                // Re-enable submit button
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cardiovascular Risk Assessment Results - CardioPredict AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f8fafc;
+        }
+
+        .header-top {
+            background: #1e40af;
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .header-top .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+        }
+
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .main-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e40af;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #1e40af;
+        }
+
+        .results-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .results-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+
+        .results-subtitle {
+            font-size: 1.2rem;
+            color: #6b7280;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 30px;
+        }
+
+        .result-header {
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .result-positive .result-header {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border-bottom: 3px solid #ef4444;
+        }
+
+        .result-negative .result-header {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-bottom: 3px solid #22c55e;
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .result-status {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .result-positive .result-status {
+            color: #dc2626;
+        }
+
+        .result-negative .result-status {
+            color: #16a34a;
+        }
+
+        .result-confidence {
+            font-size: 1.1rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .result-content {
+            padding: 40px;
+        }
+
+        .result-message {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #374151;
+            margin-bottom: 30px;
+        }
+
+        .recommendations {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .recommendations h4 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .recommendations ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recommendations li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .recommendations li:last-child {
+            border-bottom: none;
+        }
+
+        .rec-icon {
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+
+        .disclaimer {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .disclaimer h4 {
+            color: #92400e;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .disclaimer p {
+            color: #78350f;
+            line-height: 1.6;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            color: white;
+            box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .timestamp {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        @media (max-width: 768px) {
+            .results-title {
+                font-size: 2rem;
+            }
+            
+            .result-content {
+                padding: 30px 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Top Bar -->
+    <div class="header-top">
+        <div class="container">
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <span>🔒</span> HIPAA Compliant
+                </div>
+                <div class="trust-badge">
+                    <span>🏥</span> Medical Grade AI
+                </div>
+                <div class="trust-badge">
+                    <span>⚡</span> Instant Results
+                </div>
+            </div>
+            <div>
+                <span>📞 Support: Available 24/7</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">❤️</div>
+                <span>CardioPredict AI</span>
+            </a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">New Assessment</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="results-container">
+        <div class="results-header">
+            <h1 class="results-title">Your Cardiovascular Risk Assessment</h1>
+            <p class="results-subtitle">Comprehensive AI-powered analysis of your heart health indicators</p>
+        </div>
+
+        <div id="resultCard" class="result-card">
+            <div class="result-header">
+                <div id="resultIcon" class="result-icon"></div>
+                <div id="resultStatus" class="result-status"></div>
+                <div id="resultConfidence" class="result-confidence"></div>
+            </div>
+
+            <div class="result-content">
+                <div id="resultMessage" class="result-message"></div>
+                
+                <div id="recommendations" class="recommendations">
+                    <h4><span>💡</span> Personalized Recommendations</h4>
+                    <ul id="recommendationsList"></ul>
+                </div>
+
+                <div class="disclaimer">
+                    <h4><span>⚠️</span> Important Medical Disclaimer</h4>
+                    <p>This AI-powered assessment is designed for educational and informational purposes only. It should not be used as a substitute for professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare providers regarding your cardiovascular health. If you experience chest pain, shortness of breath, or other concerning symptoms, seek immediate medical attention.</p>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="index.html" class="btn btn-primary">
+                        <span>🔄</span> Take New Assessment
+                    </a>
+                    <a href="contact.html" class="btn btn-secondary">
+                        <span>👨‍💻</span> Contact Developer
+                    </a>
+                </div>
+
+                <div id="timestamp" class="timestamp"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', function() {
+            const result = JSON.parse(localStorage.getItem('predictionResult'));
+            
+            if (!result) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const resultCard = document.getElementById('resultCard');
+            const resultIcon = document.getElementById('resultIcon');
+            const resultStatus = document.getElementById('resultStatus');
+            const resultConfidence = document.getElementById('resultConfidence');
+            const resultMessage = document.getElementById('resultMessage');
+            const recommendationsList = document.getElementById('recommendationsList');
+            const timestamp = document.getElementById('timestamp');
+
+            // Handle different response formats from Flask API
+            const prediction = result.prediction === 1 || result.prediction === 'Yes' || result.prediction === true;
+            
+            if (prediction) {
+                resultCard.classList.add('result-positive');
+                resultIcon.textContent = '🚨';
+                resultStatus.textContent = 'Elevated Risk Detected';
+                
+                resultMessage.innerHTML = `
+                    <strong>Our advanced AI analysis indicates an elevated risk of cardiovascular disease based on your health profile.</strong><br><br>
+                    ${result.message || 'This assessment suggests that you may benefit from a comprehensive cardiovascular evaluation by a qualified healthcare professional. Early detection and intervention can significantly improve outcomes and reduce future risks.'}<br><br>
+                    Please note that this is a preliminary assessment and should be discussed with your healthcare provider for proper medical evaluation and personalized treatment recommendations.
+                `;
+
+                // High-risk recommendations
+                const highRiskRecs = [
+                    { icon: '🏥', text: 'Schedule an appointment with a cardiologist within the next 2-4 weeks' },
+                    { icon: '🩺', text: 'Request comprehensive cardiac testing (ECG, echocardiogram, stress test)' },
+                    { icon: '💊', text: 'Discuss medication options with your healthcare provider if appropriate' },
+                    { icon: '🥗', text: 'Adopt a heart-healthy diet low in saturated fats and sodium' },
+                    { icon: '🚶‍♂️', text: 'Begin a supervised exercise program as recommended by your doctor' },
+                    { icon: '🚭', text: 'If you smoke, seek immediate support for smoking cessation' }
+                ];
+
+                highRiskRecs.forEach(rec => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<span class="rec-icon">${rec.icon}</span><span>${rec.text}</span>`;
+                    recommendationsList.appendChild(li);
+                });
+
+            } else {
+                resultCard.classList.add('result-negative');
+                resultIcon.textContent = '✅';
+                resultStatus.textContent = 'Low Risk Assessment';
+                
+                resultMessage.innerHTML = `
+                    <strong>Excellent news! Our AI analysis indicates a lower risk of cardiovascular disease based on your current health profile.</strong><br><br>
+                    ${result.message || 'Your cardiovascular risk factors appear to be within healthy ranges. This suggests that your current lifestyle and health status are supporting good heart health.'}<br><br>
+                    Continue maintaining your healthy habits and consider the preventive recommendations below to keep your cardiovascular system in optimal condition.
+                `;
+
+                // Low-risk recommendations
+                const lowRiskRecs = [
+                    { icon: '✅', text: 'Continue regular health check-ups with your primary care physician' },
+                    { icon: '🏃‍♀️', text: 'Maintain regular physical activity (150 minutes moderate exercise per week)' },
+                    { icon: '🥬', text: 'Keep following a balanced, heart-healthy diet rich in fruits and vegetables' },
+                    { icon: '😴', text: 'Ensure adequate sleep (7-9 hours per night) for optimal heart health' },
+                    { icon: '🧘‍♂️', text: 'Practice stress management techniques like meditation or yoga' },
+                    { icon: '📊', text: 'Monitor blood pressure and cholesterol levels annually' }
+                ];
+
+                lowRiskRecs.forEach(rec => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<span class="rec-icon">${rec.icon}</span><span>${rec.text}</span>`;
+                    recommendationsList.appendChild(li);
+                });
+            }
+
+            // Display confidence if available
+            if (result.confidence) {
+                resultConfidence.textContent = `Assessment Confidence: ${(result.confidence * 100).toFixed(1)}%`;
+            } else {
+                resultConfidence.style.display = 'none';
+            }
+
+            timestamp.textContent = `Assessment completed on: ${new Date(result.timestamp).toLocaleString()}`;
+        });
+    </script>
+</body>
+</html>
